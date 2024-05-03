@@ -7,8 +7,11 @@
                 <!-- Your content here -->
             </div>
             <div class="col-auto">
-                <!-- Button aligned to the right -->
-                <button type="button" class="btn btn-primary">Upload CSV</button>
+                <form action="{{ route('upload.csv') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <input type="file" name="csv_file" accept=".csv">
+                    <button class="btn btn-primary" type="submit">Upload CSV</button>
+                </form>
             </div>
         </div>
         <div class="row justify-content-center">
@@ -17,23 +20,42 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th scope="col">Name</th>
-                                <th scope="col">Email</th>
-                                <th scope="col">Request at</th>
+                                <th scope="col">Url</th>
+                                <th scope="col">Username</th>
+                                <th scope="col">Password</th>
                                 <th scope="col">Subscription start</th>
                                 <th scope="col">Subscription end</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Details</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>Otto</td>
-                                <td>Otto</td>
-                                <td>Otto</td>
-                            </tr>
+                            @foreach ($accounts as $account)
+                                @if (Carbon\Carbon::parse($account->end_date) > Carbon\Carbon::today())
+                                    <tr class="">
+                                    @else
+                                    <tr class="table-active">
+                                @endif
+                                <td>{{ $account->url }}</td>
+                                <td>{{ $account->username }}</td>
+                                <td>{{ $account->password }}</td>
+                                <td>{{ Carbon\Carbon::parse($account->start_date)->format('Y-m-d') }}</td>
+                                <td>{{ Carbon\Carbon::parse($account->end_date)->format('Y-m-d') }}</td>
+                                <td>
+                                    @if ($account->user_id)
+                                        <span class="text-success">Used</span>
+                                    @else
+                                        <span class="text-danger">Unused</span>
+                                    @endif
+                                </td>
+                                <td>
+                                    <button class="btn btn-link" type="submit">Show</button>
+                                </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
+                    {{ $accounts->links() }}
                 </div>
             </div>
         </div>
