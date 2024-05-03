@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Account
- * 
+ *
  * @property int id
  * @property text note
  * @property timestemp start_date
@@ -24,4 +24,11 @@ class Account extends Model
      * @var string
      */
     protected $table = 'accounts';
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['url', 'username', 'password', 'start_date', 'end_date'];
 }

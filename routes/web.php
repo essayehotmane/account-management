@@ -1,7 +1,5 @@
 <?php
 
-use App\Http\Controllers\HomeController;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,4 +21,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/home', function () {
         return Redirect::to('/');
     })->name('home');
+
+    Route::post('/upload-csv', [App\Http\Controllers\AccountController::class, 'upload'])->name('upload.csv');
 });
