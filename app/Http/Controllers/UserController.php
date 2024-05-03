@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Account;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
+use App\Models\Role;
+use App\Models\User;
 
-class HomeController extends Controller
+class UserController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -24,8 +23,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $accounts = Account::query()
-            ->paginate(10);
-        return view('home', ['accounts' => $accounts]);
+        $users = User::query()
+            ->where('role_id', Role::CLIENT_ID)
+            ->paginate(50);
+
+        return view('Users', ['users' => $users]);
     }
 }
