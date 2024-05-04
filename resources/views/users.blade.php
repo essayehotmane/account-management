@@ -7,7 +7,9 @@
                 <!-- Your content here -->
             </div>
             <div class="col-auto">
-                <button class="btn btn-primary" type="submit">Export CSV</button>
+                <form id="exportForm" action="{{ route('users.export') }}" method="GET">
+                    <button class="btn btn-primary" type="submit">Export CSV</button>
+                </form>
             </div>
         </div>
         <div class="row justify-content-center">

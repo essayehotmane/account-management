@@ -18,6 +18,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::get('/requests', [App\Http\Controllers\RequestController::class, 'index'])->name('requests');
     Route::get('/users', [App\Http\Controllers\UserController::class, 'index'])->name('users');
+    Route::get('/users/export', [App\Http\Controllers\UserController::class, 'exportCsv'])->name('users.export');
     Route::get('/home', function () {
         return Redirect::to('/');
     })->name('home');
